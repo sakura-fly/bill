@@ -1,6 +1,7 @@
 package com.bill.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -10,7 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(nullable = false,length = 16)
+    @Column(nullable = false,length = 32)
     private String pwd;
     @Column(unique = true, nullable = false,length = 12)
     private String username;
@@ -41,8 +42,9 @@ public class User {
         this.username = username;
     }
 
-    public Date getTime() {
-        return time;
+    public String getTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        return sdf.format(time == null ? new Date() : time);
     }
 
     public void setTime(Date time) {
@@ -50,7 +52,7 @@ public class User {
     }
 
     public void init(){
-        time = new Date();
+        time = time == null ? new Date() : time;
     }
 
 }

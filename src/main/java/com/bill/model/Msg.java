@@ -14,6 +14,9 @@ public class Msg {
     private double price;
     private Date time;
     private int userid;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bid",insertable = false,updatable=false)
+    private User user;
 
     public int getId() {
         return id;
@@ -53,5 +56,13 @@ public class Msg {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
