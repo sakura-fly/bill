@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 @Controller
 @RequestMapping("/auth")
@@ -19,7 +21,10 @@ public class AuthCtrl {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseOneModel<User> login(User user){
-        return service.find(user);
+    public ResponseOneModel<User> login(User user, HttpSession session){
+        ResponseOneModel<User> r = service.find(user);
+        if (r.getModel() != null)
+            session.setAttribute("user", r.getModel());
+        return r;
     }
 }

@@ -1,6 +1,7 @@
 package com.bill.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -15,7 +16,7 @@ public class Msg {
     private Date time;
     private int userid;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bid",insertable = false,updatable=false)
+    @JoinColumn(name = "bid", insertable = false, updatable = false)
     private User user;
 
     public int getId() {
@@ -42,8 +43,9 @@ public class Msg {
         this.price = price;
     }
 
-    public Date getTime() {
-        return time;
+    public String getTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        return sdf.format(time == null ? new Date() : time);
     }
 
     public void setTime(Date time) {
@@ -64,5 +66,9 @@ public class Msg {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void init() {
+        time = time == null ? new Date() : time;
     }
 }
