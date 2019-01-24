@@ -16,7 +16,7 @@ public class Msg {
     private Date time;
     private int userid;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bid", insertable = false, updatable = false)
+    @JoinColumn(name = "userid", insertable = false, updatable = false)
     private User user;
 
     public int getId() {

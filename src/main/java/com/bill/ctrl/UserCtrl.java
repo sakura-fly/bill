@@ -1,6 +1,7 @@
 package com.bill.ctrl;
 
 import com.bill.model.User;
+import com.bill.model.response.ResponseListModel;
 import com.bill.model.response.ResponseModel;
 import com.bill.model.response.ResponseOneModel;
 import com.bill.service.impl.UserService;
@@ -30,6 +31,12 @@ public class UserCtrl {
     @ResponseBody
     public ResponseOneModel<User> find(User u){
         return service.find(u);
+    }
+
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseListModel<User> list(User u){
+        return service.list(u);
     }
 
 

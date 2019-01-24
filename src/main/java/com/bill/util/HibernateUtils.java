@@ -2,12 +2,12 @@ package com.bill.util;
 
 import com.bill.model.SensorData;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class HibernateUtils {
@@ -27,6 +27,24 @@ public class HibernateUtils {
 
         queryWhere(rre, query, root, builder);
 
+        return session.createQuery(query);
+    }
+
+
+    //这个有问题
+    public static Query getQuery(Session session, Object o, String starttime, String endtime) throws ParseException {
+        // 获取字段内容，为空、空字符串、0的不查
+        List<SensorData> rre = RrelationData.sensorDataList(o);
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<?> query = builder.createQuery(o.getClass());
+        Root root = query.from(o.getClass());
+        query.select(root);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        queryWhere(rre, query, root, builder);
+        // Restrictions
+        query.where(builder.gt(root.<Number>get("time"), (Expression<? extends Number>) sdf.parse(starttime)));
         return session.createQuery(query);
     }
 
