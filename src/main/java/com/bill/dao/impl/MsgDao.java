@@ -30,6 +30,7 @@ public class MsgDao extends BaseDaoImpl<Msg> {
             q.setParameter("endtime",sdf.parse(endtime));
 
             q.list();
+            q.addEntity(Msg.class);
             // Query query = HibernateUtils.getQuery(session, msg,starttime,endtime);
             r = q.list();
             tx.commit();
