@@ -30,4 +30,13 @@ public class MsgService extends BaseServiceImpl<Msg> {
         }
         return r;
     }
+
+    public double allprice(Msg msg, String starttime, String endtime){
+        try {
+            return msgDao.allPrice(msg,starttime,endtime);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
