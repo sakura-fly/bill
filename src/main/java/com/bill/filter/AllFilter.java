@@ -17,6 +17,9 @@ public class AllFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        response.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("utf-8");
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setHeader("Access-Control-Allow-Method","*");
         filterChain.doFilter(servletRequest, servletResponse);
